@@ -48,9 +48,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         converters.add(converter);
         super.configureMessageConverters(converters);
     }
-
-    @Override
-    public Validator getValidator() {
-        return new OptionalValidatorFactoryBean();
-    }
 }

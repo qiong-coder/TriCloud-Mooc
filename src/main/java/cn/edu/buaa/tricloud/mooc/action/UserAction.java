@@ -51,6 +51,7 @@ public class UserAction {
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
     public String insertUser(@RequestBody @Valid User user, BindingResult errors)
     {
+        System.out.format("User - username:%s, password:%s\n",user.getUsername(),user.getPassword());
         if ( errors.hasErrors() ) return "registerForm";
         userRepository.insertUser(user);
         return "redirect:/user/"+user.getUsername()+"/";
