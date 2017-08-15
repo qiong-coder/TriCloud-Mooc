@@ -19,20 +19,20 @@ import javax.validation.Valid;
 public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
+    public String home(Model model) {
         return "home";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegistrationForm(Model model) {
-        model.addAttribute(new User());
-        return "registerForm";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistration(@Valid  User user,
-                                      Errors errors) {
-        if ( errors.hasErrors() ) return "registerForm";
-        else return "success";
-    }
+//    @RequestMapping(value = "/register", method = RequestMethod.GET)
+//    public String showRegistrationForm(Model model) {
+//        model.addAttribute(new User());
+//        return "registerForm";
+//    }
+//
+//    @RequestMapping(value = "/register", method = RequestMethod.POST)
+//    public String processRegistration(@Valid  User user,
+//                                      Errors errors) {
+//        if ( errors.hasErrors() ) return "registerForm";
+//        else return "success";
+//    }
 }

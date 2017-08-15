@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
     <title>TriCloud-Mooc</title>
@@ -14,13 +14,11 @@
 <body>
     <h1>Register</h1>
 
-    <sf:form method="POST" commandName="user" action="/register">
-        First Name: <sf:input path="firstName" />
-        <sf:errors path="firstName"/><br>
-        Last Name:  <sf:input path="lastName" /><br>
-        Username:   <sf:input path="username" /><br>
-        Password:   <sf:password path="password" /><br>
+    <sf:form method="POST" modelAttribute="user">
+        Username:   <sf:input path="username" /> <sf:errors path="username"/><br>
+        Password:   <sf:password path="password" /> <sf:errors path="password"/><br>
         <input type="submit" value="Register" />
     </sf:form>
+
 </body>
 </html>

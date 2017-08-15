@@ -10,42 +10,18 @@ import javax.validation.constraints.Size;
 public class User {
 
     @NotNull
-    @Size(min=5, max=16)
-    private String firstName;
-
-    @NotNull
-    @Size(min=5, max=16)
-    private String lastName;
-
-    @NotNull
-    @Size(min=6, max=30)
+    @Size(min=8, max=30)
     private String username;
 
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min=8, max=30)
     private String password;
 
-    public User() {
-        this.firstName = "defaultName";
-        this.lastName = "Your's lastName";
-        this.username = "Your login user name";
-        this.password = "password must be at least 2";
-    }
+    public User() {}
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {

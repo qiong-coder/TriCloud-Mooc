@@ -1,19 +1,20 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: qixiang
-  Date: 8/14/17
-  Time: 17:50
+  Date: 8/15/17
+  Time: 14:57
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-
 <html>
 <head>
-    <title>Welcome to TriCloud</title>
+    <title>User</title>
 </head>
 <body>
-<a href="<c:url value="/user/" />">users</a>
-<a href="<c:url value="/user/register/" />">register</a>
+
+username: <c:out value="${user.username}" /><br/>
+password: <c:out value="${user.password}" /><br/>
+
 </body>
 </html>
