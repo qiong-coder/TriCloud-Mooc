@@ -17,7 +17,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { RootConfig.class };
+        return new Class<?>[] { WebSecurityConfig.class, RootConfig.class };
     }
 
     @Override
@@ -25,17 +25,9 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         return new Class<?>[] { WebConfig.class };
     }
 
-//    @Override
-//    public void onStartup(ServletContext servletContext) throws ServletException {
-//        super.onStartup(servletContext);
-//        FilterRegistration.Dynamic filter = servletContext.addFilter("characterEncodingFilter", CharacterEncodingFilter.class);
-//        filter.setInitParameter("encoding","utf-8");
-//        filter.setInitParameter("forceEncoding", "true");
-//        filter.addMappingForUrlPatterns(null, false, "/");
-//    }
-
     @Override
     protected Filter[] getServletFilters() {
         return new Filter[] { new CharacterEncodingFilter("utf-8", true) };
     }
+
 }

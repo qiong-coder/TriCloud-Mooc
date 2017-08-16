@@ -1,14 +1,12 @@
 package cn.edu.buaa.tricloud.mooc.action;
 
-import cn.edu.buaa.tricloud.mooc.model.User;
+import cn.edu.buaa.tricloud.mooc.domain.User;
 import cn.edu.buaa.tricloud.mooc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -49,7 +47,7 @@ public class UserAction {
     }
 
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
-    public String insertUser(@RequestBody @Valid User user, BindingResult errors)
+    public String insertUser(@Valid User user, BindingResult errors)
     {
         System.out.format("User - username:%s, password:%s\n",user.getUsername(),user.getPassword());
         if ( errors.hasErrors() ) return "registerForm";

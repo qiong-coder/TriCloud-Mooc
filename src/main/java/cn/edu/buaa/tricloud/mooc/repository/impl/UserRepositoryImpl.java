@@ -2,14 +2,14 @@ package cn.edu.buaa.tricloud.mooc.repository.impl;
 
 import cn.edu.buaa.tricloud.mooc.exception.UserDuplicate;
 import cn.edu.buaa.tricloud.mooc.exception.UserNotFound;
-import cn.edu.buaa.tricloud.mooc.model.User;
+import cn.edu.buaa.tricloud.mooc.domain.User;
 import cn.edu.buaa.tricloud.mooc.repository.UserRepository;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by qixiang on 8/15/17.
@@ -17,22 +17,26 @@ import java.util.Map;
 @Repository("userRepository")
 public class UserRepositoryImpl implements UserRepository {
 
-    private Map<String,String> users;
+    private static String SelectUsers = "from User";
 
-    public UserRepositoryImpl() {
-        users = new HashMap<String, String>();
-        users.put("root","admin");
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public UserRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    private Session currentSession() {
+        return sessionFactory.getCurrentSession();
     }
 
     public List<User> selectUsers() {
-        List<User> userList = new ArrayList<User>();
-        for ( Map.Entry<String,String> entry : users.entrySet() ) {
-            userList.add(new User(entry.getKey(),entry.getValue()));
-        }
-        return userList;
+        return currentSession().createQuery(SelectUsers).getResultList();
+
     }
 
     public User selectByUserName(String username) {
+        currentSession().createQuery()
         if ( users.containsKey(username) ) return new User(username,users.get(username));
         else throw new UserNotFound();
     }

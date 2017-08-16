@@ -1,6 +1,6 @@
 package cn.edu.buaa.tricloud.mooc.repository;
 
-import cn.edu.buaa.tricloud.mooc.model.User;
+import cn.edu.buaa.tricloud.mooc.domain.User;
 
 import java.util.List;
 
