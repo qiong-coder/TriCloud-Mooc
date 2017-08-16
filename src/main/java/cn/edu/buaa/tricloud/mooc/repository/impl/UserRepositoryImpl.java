@@ -17,8 +17,9 @@ import java.util.List;
 @Repository("userRepository")
 public class UserRepositoryImpl implements UserRepository {
 
-    private static String SelectUsers = "from User";
+    private static final String SelectUsers = "FROM User";
 
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -31,18 +32,19 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public List<User> selectUsers() {
-        return currentSession().createQuery(SelectUsers).getResultList();
-
+        return currentSession().createQuery(SelectUsers).list();
     }
 
     public User selectByUserName(String username) {
-        currentSession().createQuery()
-        if ( users.containsKey(username) ) return new User(username,users.get(username));
+        User user = currentSession().byNaturalId(User.class).using("username", username).load();
+        if ( user != null ) return user;
         else throw new UserNotFound();
     }
 
     public int insertUser(User user) {
-        if ( users.containsKey(user.getUsername()) ) throw new UserDuplicate();
-        users.put(user.getUsername(),user.getPassword()); return 1;
+        User iuser = currentSession().byNaturalId(User.class).using("username", user.getUsername()).load();
+        if ( iuser != null ) throw new UserDuplicate();
+        currentSession().save(user);
+        return 1;
     }
 }

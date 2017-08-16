@@ -1,36 +1,41 @@
 package cn.edu.buaa.tricloud.mooc.domain;
 
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
  * Created by stupid-coder on 8/15/17.
  */
-@Entity
-@Table(name = "User")
+@Entity(name = "User")
 public class User {
 
+    @Id
+    @Generated(GenerationTime.INSERT)
+    private Integer id;
 
-    private Long id;
-
+    @NaturalId
     private String username;
 
     private String password;
 
-    private Date create_time;
+    private Integer status;
+
+    @Generated(GenerationTime.INSERT)
+    private Timestamp create_time;
 
 
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,13 +55,19 @@ public class User {
         this.password = password;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time")
-    public Date getCreate_time() {
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Timestamp getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(Timestamp create_time) {
         this.create_time = create_time;
     }
 }
