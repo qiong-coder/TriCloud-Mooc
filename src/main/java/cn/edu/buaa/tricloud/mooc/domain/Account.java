@@ -7,22 +7,28 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
 
 /**
  * Created by stupid-coder on 8/15/17.
  */
-@Entity(name = "User")
-public class User {
+@Entity(name = "Account")
+public class Account {
 
     @Id
     @Generated(GenerationTime.INSERT)
     private Integer id;
 
     @NaturalId
+    @NotNull
+    @Size(min=10, max=20)
     private String username;
 
+    @NotNull
+    @Size(min=8, max=20)
     private String password;
 
     private Integer status;

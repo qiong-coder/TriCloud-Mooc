@@ -5,10 +5,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -21,7 +20,7 @@ import java.util.Properties;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"cn.edu.buaa.tricloud.mooc.service", "cn.edu.buaa.tricloud.mooc.repository"},
+@ComponentScan(basePackages = {"cn.edu.buaa.tricloud.mooc.service.impl", "cn.edu.buaa.tricloud.mooc.repository.impl"},
         excludeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value= EnableWebMvc.class) ,
         @ComponentScan.Filter(type = FilterType.ANNOTATION, value = ControllerAdvice.class)})
 @PropertySource(value = {"classpath:jdbc.properties"})
@@ -61,11 +60,14 @@ public class RootConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setPackagesToScan(new String[] {"cn.edu.buaa.tricloud.mooc.domain"});
+
         Properties properties = new Properties();
-        properties.setProperty("dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+        properties.setProperty("dialect", "org.hibernate.dialect.MySQL5Dialect");
         properties.setProperty("show_sql", "true");
         properties.setProperty("format_sql", "true");
-        properties.setProperty("hbm2ddl.auto", "update");
+        properties.setProperty("hbm2ddl.auto", "validate");
+        properties.setProperty("current_session_context_class", "thread");
+
         factoryBean.setHibernateProperties(properties);
         return factoryBean;
     }

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: qixiang
+  Account: qixiang
   Date: 8/15/17
   Time: 16:46
   To change this template use File | Settings | File Templates.
@@ -13,13 +13,13 @@
 </head>
 <body>
 
-<c:forEach items="${userList}" var="user">
-    <li id="user_<c:out value="user.username"/>" >
+<c:forEach items="${accountList}" var="account">
+    <li id="user_<c:out value="account.username"/>" >
         <div>
-            username: <c:out value="${user.username}"/>
+            username: <c:out value="${account.username}"/>
         </div>
         <div>
-            password: <c:out value="${user.password}" />
+            password: <c:out value="${account.password}" />
         </div>
     </li>
 </c:forEach>

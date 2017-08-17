@@ -14,7 +14,7 @@
 <body>
     <h1>Register</h1>
 
-    <sf:form method="POST" modelAttribute="user">
+    <sf:form method="POST" modelAttribute="account">
         Username:   <sf:input path="username" /> <sf:errors path="username"/><br>
         Password:   <sf:password path="password" /> <sf:errors path="password"/><br>
         <input type="submit" value="Register" />

@@ -19,12 +19,12 @@ public class HomeController {
 
 //    @RequestMapping(value = "/register", method = RequestMethod.GET)
 //    public String showRegistrationForm(Model model) {
-//        model.addAttribute(new User());
+//        model.addAttribute(new Account());
 //        return "registerForm";
 //    }
 //
 //    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String processRegistration(@Valid  User user,
+//    public String processRegistration(@Valid  Account user,
 //                                      Errors errors) {
 //        if ( errors.hasErrors() ) return "registerForm";
 //        else return "success";

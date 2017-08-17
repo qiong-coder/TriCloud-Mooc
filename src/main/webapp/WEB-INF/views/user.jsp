@@ -13,8 +13,8 @@
 </head>
 <body>
 
-username: <c:out value="${user.username}" /><br/>
-password: <c:out value="${user.password}" /><br/>
+username: <c:out value="${account.username}" /><br/>
+password: <c:out value="${account.password}" /><br/>
 
 </body>
 </html>

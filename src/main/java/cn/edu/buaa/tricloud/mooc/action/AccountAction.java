@@ -1,7 +1,8 @@
 package cn.edu.buaa.tricloud.mooc.action;
 
-import cn.edu.buaa.tricloud.mooc.domain.User;
-import cn.edu.buaa.tricloud.mooc.repository.UserRepository;
+import cn.edu.buaa.tricloud.mooc.domain.Account;
+import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
+import cn.edu.buaa.tricloud.mooc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,41 +19,41 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value = "/user")
-public class UserAction {
+@RequestMapping(value = "/account")
+public class AccountAction {
 
     @Autowired
-    UserRepository userRepository;
+    AccountService accountService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String selectUsers(Model model) {
-        List<User> userList = userRepository.selectUsers();
-        model.addAttribute(userList);
+        List<Account> accountList = accountService.getAccounts();
+        model.addAttribute(accountList);
         return "users";
     }
 
     @RequestMapping(value = "/{username}/", method = RequestMethod.GET)
     public String selectByName(@PathVariable String username,
                                Model model) {
-        User user = userRepository.selectByUserName(username);
-        model.addAttribute(user);
+        Account account = accountService.getAccountByUsername(username);
+        model.addAttribute(account);
         return "user";
     }
 
     @RequestMapping(value = "/register/", method = RequestMethod.GET)
     public String getRegisterForm(Model model)
     {
-        model.addAttribute(new User());
+        model.addAttribute(new Account());
         return "registerForm";
     }
 
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
-    public String insertUser(@Valid User user, BindingResult errors)
+    public String insertUser(@Valid Account account, BindingResult errors)
     {
-        System.out.format("User - username:%s, password:%s\n",user.getUsername(),user.getPassword());
+        System.out.format("Account - username:%s, password:%s\n", account.getUsername(), account.getPassword());
         if ( errors.hasErrors() ) return "registerForm";
-        userRepository.insertUser(user);
-        return "redirect:/user/"+user.getUsername()+"/";
+        accountService.insertAccount(account);
+        return "redirect:/account/"+ account.getUsername()+"/";
     }
 
 }

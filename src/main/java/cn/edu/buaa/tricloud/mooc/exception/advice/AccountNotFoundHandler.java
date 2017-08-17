@@ -1,6 +1,6 @@
 package cn.edu.buaa.tricloud.mooc.exception.advice;
 
-import cn.edu.buaa.tricloud.mooc.exception.UserNotFound;
+import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @ControllerAdvice
-public class UserNotFoundHandler {
+public class AccountNotFoundHandler {
 
-    @ExceptionHandler(UserNotFound.class)
+    @ExceptionHandler(AccountNotFound.class)
     @ResponseBody
     public String userNotFound() {
-        return "error/notfound";
+        return "error/error";
     }
 
 }
