@@ -1,16 +1,13 @@
 package cn.edu.buaa.tricloud.mooc.domain;
 
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Created by stupid-coder on 8/15/17.
@@ -19,7 +16,7 @@ import java.util.Date;
 public class Account {
 
     @Id
-    @Generated(GenerationTime.INSERT)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     @NaturalId
@@ -31,11 +28,10 @@ public class Account {
     @Size(min=8, max=20)
     private String password;
 
+    @GeneratedValue()
     private Integer status;
 
-    @Generated(GenerationTime.INSERT)
     private Timestamp create_time;
-
 
     public Integer getId() {
         return id;

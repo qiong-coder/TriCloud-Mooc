@@ -22,7 +22,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {
-        return sessionFactory.openSession();
+        return sessionFactory.getCurrentSession();
     }
 
     public List<Account> getAccounts() {

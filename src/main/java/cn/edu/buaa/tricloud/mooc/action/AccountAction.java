@@ -50,8 +50,7 @@ public class AccountAction {
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
     public String insertUser(@Valid Account account, BindingResult errors)
     {
-        System.out.format("Account - username:%s, password:%s\n", account.getUsername(), account.getPassword());
-        if ( errors.hasErrors() ) return "registerForm";
+       if ( errors.hasErrors() ) return "registerForm";
         accountService.insertAccount(account);
         return "redirect:/account/"+ account.getUsername()+"/";
     }
