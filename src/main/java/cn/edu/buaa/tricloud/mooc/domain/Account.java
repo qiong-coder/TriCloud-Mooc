@@ -13,24 +13,29 @@ import java.sql.Timestamp;
  * Created by stupid-coder on 8/15/17.
  */
 @Entity(name = "Account")
+@DynamicUpdate
+@DynamicInsert
 public class Account {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
 
     @NaturalId
     @NotNull
-    @Size(min=10, max=20)
+    @Column(unique = true)
+    @Size(min=5, max=20)
     private String username;
 
     @NotNull
-    @Size(min=8, max=20)
+    @Size(min=4, max=20)
     private String password;
 
-    @GeneratedValue()
+    private String roles;
+
     private Integer status;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp create_time;
 
     public Integer getId() {
@@ -55,6 +60,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public Integer getStatus() {

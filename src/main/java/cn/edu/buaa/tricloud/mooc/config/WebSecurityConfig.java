@@ -1,5 +1,7 @@
 package cn.edu.buaa.tricloud.mooc.config;
 
+import cn.edu.buaa.tricloud.mooc.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
 @EnableWebMvcSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired AccountService accountService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
@@ -26,8 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ADMIN","USER").and()
-                .withUser("user").password("user").roles("USER");
+        auth.userDetailsService(accountService);
     }
 }
