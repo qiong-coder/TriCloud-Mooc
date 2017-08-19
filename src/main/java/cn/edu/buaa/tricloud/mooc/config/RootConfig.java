@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"cn.edu.buaa.tricloud.mooc.service.impl", "cn.edu.buaa.tricloud.mooc.repository.impl"},
+@ComponentScan(basePackages = {"cn.edu.buaa.tricloud.mooc.service.impl", "cn.edu.buaa.tricloud.mooc.repository"},
         excludeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value= EnableWebMvc.class) ,
         @ComponentScan.Filter(type = FilterType.ANNOTATION, value = ControllerAdvice.class)})
 public class RootConfig {}

@@ -22,10 +22,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http
-                .authorizeRequests()
-                .anyRequest().authenticated().and()
-                .formLogin().and()
-                .httpBasic();
+                .authorizeRequests().anyRequest().permitAll();
+//                .anyRequest().authenticated().and()
+//                .formLogin().and()
+//                .httpBasic();
     }
 
     @Override

@@ -1,58 +1,44 @@
 package cn.edu.buaa.tricloud.mooc.action;
 
-import cn.edu.buaa.tricloud.mooc.domain.Account;
-import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
+
+import cn.edu.buaa.tricloud.mooc.Request.AccountRegister;
+import cn.edu.buaa.tricloud.mooc.Response.Response;
+import cn.edu.buaa.tricloud.mooc.Response.ResponseBuilder;
+import cn.edu.buaa.tricloud.mooc.exception.QueryParameterError;
 import cn.edu.buaa.tricloud.mooc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import javax.validation.constraints.Size;
 
 /**
  * Created by qixiang on 8/14/17.
  */
 
-@Controller
+@RestController
+@Validated
 @RequestMapping(value = "/account")
 public class AccountAction {
 
     @Autowired
     AccountService accountService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String selectUsers(Model model) {
-        List<Account> accountList = accountService.getAccounts();
-        model.addAttribute(accountList);
-        return "users";
-    }
-
-    @RequestMapping(value = "/{username}/", method = RequestMethod.GET)
-    public String selectByName(@PathVariable String username,
-                               Model model) {
-        Account account = accountService.getAccountByUsername(username);
-        model.addAttribute(account);
-        return "user";
-    }
-
-    @RequestMapping(value = "/register/", method = RequestMethod.GET)
-    public String getRegisterForm(Model model)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public Response register(@Valid AccountRegister accountRegister, BindingResult errors)
     {
-        model.addAttribute(new Account());
-        return "registerForm";
+       if ( errors.hasErrors() ) throw new QueryParameterError(errors.toString());
+       accountService.insertAccount(accountRegister);
+       return ResponseBuilder.build(null);
     }
 
-    @RequestMapping(value = "/register/", method = RequestMethod.POST)
-    public String insertUser(@Valid Account account, BindingResult errors)
+    @RequestMapping(value = "/{login_name}/{password}/", method = RequestMethod.GET)
+    public Response login(@PathVariable(name = "login_name") @Size(min=6,max=20,message = "login_name size must be 6~20") String login_name,
+                          @PathVariable(name = "password") @Size(min=6,max=20,message = "password size must be 6~20") String password)
+
     {
-       if ( errors.hasErrors() ) return "registerForm";
-        accountService.insertAccount(account);
-        return "redirect:/account/"+ account.getUsername()+"/";
+        return ResponseBuilder.build(accountService.checkAccount(login_name,password));
     }
-
 }

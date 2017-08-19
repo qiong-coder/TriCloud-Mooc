@@ -1,6 +1,9 @@
 package cn.edu.buaa.tricloud.mooc.service.impl;
 
+import cn.edu.buaa.tricloud.mooc.Request.AccountRegister;
 import cn.edu.buaa.tricloud.mooc.domain.Account;
+import cn.edu.buaa.tricloud.mooc.exception.AccountDuplicate;
+import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
 import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import cn.edu.buaa.tricloud.mooc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import java.util.List;
 /**
  * Created by qixiang on 8/17/17.
  */
-@Component("accountService")
+@Component("AccountService")
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
@@ -28,26 +31,31 @@ public class AccountServiceImpl implements AccountService {
         return accountList;
     }
 
-    public Account getAccountByUsername(String username) {
-        return accountRepository.getAccountByUsername(username);
+    public Account getAccountByLoginName(String loginName) {
+        Account account = accountRepository.getAccountByLoginName(loginName);
+        if ( account == null ) throw new AccountNotFound(String.format("failure to find the account by login_name:%s",loginName));
+        return account;
     }
 
-    public boolean checkAccount(Account account) {
-        return accountRepository.checkAccount(account);
+    public boolean checkAccount(String loginName, String password) {
+        Account account = getAccountByLoginName(loginName);
+        return account.getPassword().compareTo(password) == 0;
     }
 
-    public int updateAccount(Account account) {
-        return accountRepository.updateAccount(account);
+//    public int updateAccount(Account account) {
+//        return accountRepository.updateAccount(account);
+//    }
+
+    public void insertAccount(AccountRegister accountRegister) {
+        if ( accountRepository.getAccountByLoginName(accountRegister.getLoginame()) != null )
+            throw new AccountDuplicate("failure to insert account because of duplication");
+        accountRepository.insertAccount(accountRegister.build());
     }
 
-    public int insertAccount(Account account) {
-        return accountRepository.insertAccount(account);
-    }
-
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = getAccountByUsername(username);
-        if ( account == null ) throw new UsernameNotFoundException(String.format("failure to find the account - username:%s",username));
-        return new User(account.getUsername(),
+    public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
+        Account account = getAccountByLoginName(loginName);
+        if ( account == null ) throw new UsernameNotFoundException(String.format("failure to find the account - login_name:%s",loginName));
+        return new User(account.getLogin_name(),
                 account.getPassword(),
                 account.getStatus().compareTo(0) == 0,
                 true,

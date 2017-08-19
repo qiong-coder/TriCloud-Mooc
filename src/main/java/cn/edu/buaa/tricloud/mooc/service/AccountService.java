@@ -1,5 +1,6 @@
 package cn.edu.buaa.tricloud.mooc.service;
 
+import cn.edu.buaa.tricloud.mooc.Request.AccountRegister;
 import cn.edu.buaa.tricloud.mooc.domain.Account;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -12,12 +13,12 @@ public interface AccountService extends UserDetailsService {
 
     List<Account> getAccounts();
 
-    Account getAccountByUsername(String username);
+    Account getAccountByLoginName(String loginName);
 
-    boolean checkAccount(Account account);
+    boolean checkAccount(String loginName, String password);
 
-    int updateAccount(Account account);
+    //int updateAccount(Account account);
 
-    int insertAccount(Account account);
+    void insertAccount(AccountRegister accountRegister);
 
 }

@@ -1,12 +1,8 @@
 package cn.edu.buaa.tricloud.mooc.domain;
 
-
 import org.hibernate.annotations.*;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 /**
@@ -22,16 +18,16 @@ public class Account {
     private Integer id;
 
     @NaturalId
-    @NotNull
     @Column(unique = true)
-    @Size(min=5, max=20)
+    private String login_name;
+
     private String username;
 
-    @NotNull
-    @Size(min=4, max=20)
     private String password;
 
     private String roles;
+
+    private Integer school;
 
     private Integer status;
 
@@ -44,6 +40,14 @@ public class Account {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getLogin_name() {
+        return login_name;
+    }
+
+    public void setLogin_name(String login_name) {
+        this.login_name = login_name;
     }
 
     public String getUsername() {
@@ -70,6 +74,15 @@ public class Account {
         this.roles = roles;
     }
 
+
+    public Integer getSchool() {
+        return school;
+    }
+
+    public void setSchool(Integer school) {
+        this.school = school;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -85,4 +98,5 @@ public class Account {
     public void setCreate_time(Timestamp create_time) {
         this.create_time = create_time;
     }
+
 }

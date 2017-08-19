@@ -30,4 +30,9 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         return new Filter[] { new CharacterEncodingFilter("utf-8", true) };
     }
 
+//    @Override
+//    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+//        registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+//        super.customizeRegistration(registration);
+//    }
 }

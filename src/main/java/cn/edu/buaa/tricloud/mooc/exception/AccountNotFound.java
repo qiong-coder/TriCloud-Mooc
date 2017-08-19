@@ -1,11 +1,15 @@
 package cn.edu.buaa.tricloud.mooc.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+import cn.edu.buaa.tricloud.mooc.Response.ResponseCodeMessage;
 
 /**
  * Created by qixiang on 8/15/17.
  */
-//@ResponseStatus(value= HttpStatus.NOT_FOUND, reason = "user not found")
-public class AccountNotFound extends RuntimeException {
+public class AccountNotFound extends RuntimeExceptionWithErrorCode {
+
+    public AccountNotFound(String message) {
+        super(message, ResponseCodeMessage.ACCOUNT_NOT_FOUND_CODE);
+    }
+
 }

@@ -1,7 +1,9 @@
 package cn.edu.buaa.tricloud.mooc.repository;
 
+import cn.edu.buaa.tricloud.mooc.Request.AccountRegister;
 import cn.edu.buaa.tricloud.mooc.domain.Account;
 
+import java.awt.event.HierarchyBoundsListener;
 import java.util.List;
 
 /**
@@ -11,11 +13,8 @@ public interface AccountRepository {
 
     List<Account> getAccounts();
 
-    Account getAccountByUsername(String username);
+    Account getAccountByLoginName(String loginName);
 
-    boolean checkAccount(Account account);
+    void insertAccount(Account account);
 
-    int insertAccount(Account account);
-
-    int updateAccount(Account account);
 }
