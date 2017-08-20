@@ -17,6 +17,8 @@ public class CourseInsert {
     @NotNull
     private String teacher_name;
 
+    @NotNull
+
     public String getName() {
         return name;
     }
@@ -36,7 +38,6 @@ public class CourseInsert {
     public Course build(String description) {
         Course course = new Course();
         course.setName(getName());
-        course.setTeacher_name(getTeacher_name());
         course.setDescription(description);
         return course;
     }

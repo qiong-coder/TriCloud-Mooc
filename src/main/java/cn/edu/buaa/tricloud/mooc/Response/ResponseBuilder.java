@@ -1,5 +1,7 @@
 package cn.edu.buaa.tricloud.mooc.Response;
 
+import cn.edu.buaa.tricloud.mooc.exception.RuntimeExceptionWithErrorCode;
+
 /**
  * Created by qixiang on 8/19/17.
  */
@@ -32,8 +34,8 @@ public class ResponseBuilder {
         return new Response(code,message,null);
     }
 
-    public static Response build(int code, Exception exception) {
-        return new Response(code,exception.getMessage(),null);
+    public static Response build(int i,RuntimeExceptionWithErrorCode exception) {
+        return new Response(exception.getCode(),exception.getMessage(),null);
     }
 
 }

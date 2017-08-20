@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS `Course`;
 CREATE TABLE `Course` (
   `id`              INT(10) NOT NULL AUTO_INCREMENT,
   `name`            VARCHAR(100) NOT NULL COMMENT '课程名称',
-  `teacher_name`    VARCHAR(100) NOT NULL COMMENT '教师',
+  `identity`        VARCHAR(100) NOT NULL COMMENT '教师工号',
   `description`     VARCHAR(100) NOT NULL COMMENT '课程描述文件连接',
   `ppt`             TEXT COMMENT '课件资源',
   `video`           TEXT COMMENT '视频资源',

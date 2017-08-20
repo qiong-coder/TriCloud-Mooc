@@ -41,4 +41,9 @@ public class AccountAction {
     {
         return ResponseBuilder.build(accountService.checkAccount(login_name,password));
     }
+
+    @RequestMapping(value = "/{login_name}/", method = RequestMethod.GET)
+    public Response get(@PathVariable("login_name") String login_name) {
+        return ResponseBuilder.build(accountService.getAccountByLoginName(login_name));
+    }
 }

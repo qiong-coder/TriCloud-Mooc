@@ -20,7 +20,7 @@ public class CommonAdvice {
     @ExceptionHandler(QueryParameterError.class)
     //@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = ResponseCodeMessage.QUERY_PARAMETERS_ERROR_MESSAGE)
     public Response queryParametersException(QueryParameterError queryParameterError) {
-        return ResponseBuilder.build(ResponseCodeMessage.QUERY_PARAMETERS_ERROR_CODE, queryParameterError);
+        return ResponseBuilder.build(0,queryParameterError);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

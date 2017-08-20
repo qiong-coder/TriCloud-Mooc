@@ -15,7 +15,7 @@ public interface CourseService {
 
     Course getCourseById(Integer id);
 
-    Integer insertCourse(CourseInsert course, Part description);
+    Integer insertCourse(String login_name, String name, Part description);
 
     void updateCourse(Course course);
 

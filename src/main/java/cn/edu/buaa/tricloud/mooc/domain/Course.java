@@ -3,10 +3,7 @@ package cn.edu.buaa.tricloud.mooc.domain;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -23,7 +20,7 @@ public class Course {
 
     private String name;
 
-    private String teacher_name;
+    private String identity;
 
     private String description;
 
@@ -39,6 +36,13 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp create_time;
 
+    public void merge(Course course)
+    {
+        if ( course.getName() != null ) name = course.getName();
+        if ( course.getPpt() != null ) ppt = course.getPpt();
+        if ( course.getVides() != null ) vides = course.getVides();
+        if ( course.getStatus() != null ) status = course.getStatus();
+    }
 
     public Integer getId() {
         return id;
@@ -56,12 +60,12 @@ public class Course {
         this.name = name;
     }
 
-    public String getTeacher_name() {
-        return teacher_name;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setTeacher_name(String teacher_name) {
-        this.teacher_name = teacher_name;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
     public String getDescription() {

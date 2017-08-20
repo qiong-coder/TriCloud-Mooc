@@ -23,5 +23,7 @@ public class ResponseCodeMessage {
     public static final int COURSE_NOT_FOUND_CODE = -5;
     public static final String COURSE_NOT_FOUND_MESSAGE = "failure to find the course";
 
+    public static final int ACCOUNT_ROLE_NONVALIDATE_CODE = -6;
+    public static final String ACCOUNT_ROLE_NONVALIDATE_MESSAGE = "account's role is nonvalidate";
 
 }

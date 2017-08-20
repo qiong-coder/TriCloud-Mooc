@@ -1,16 +1,19 @@
 package cn.edu.buaa.tricloud.mooc.service.impl;
 
-import cn.edu.buaa.tricloud.mooc.Request.CourseInsert;
+import cn.edu.buaa.tricloud.mooc.domain.Account;
 import cn.edu.buaa.tricloud.mooc.domain.Course;
+import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
+import cn.edu.buaa.tricloud.mooc.exception.AccountRolesNonValidate;
 import cn.edu.buaa.tricloud.mooc.exception.CourseNotFound;
+import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import cn.edu.buaa.tricloud.mooc.repository.CourseRepository;
 import cn.edu.buaa.tricloud.mooc.service.CourseService;
+import cn.edu.buaa.tricloud.mooc.utils.FileUpLoadUtils;
+import cn.edu.buaa.tricloud.mooc.utils.RolesConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,16 +22,15 @@ import java.util.List;
 @Component("CourseService")
 public class CourseServiceImpl implements CourseService {
 
-    private static String medias_path = System.getProperty("catalina.base")
-            + "/tricloud-mooc/TriCloud-Mooc/WEB-INF/medias";
-
-    static {
-        File dir = new File(medias_path);
-        if ( !dir.exists() ) dir.mkdirs();
-    }
 
     @Autowired
     CourseRepository courseRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    FileUpLoadUtils fileUpLoadUtils;
 
     public List<Course> listAllCourses() {
         List<Course> courses = courseRepository.list();
@@ -42,17 +44,29 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
-    public Integer insertCourse(CourseInsert courseInsert, Part description) {
-        String description_path = medias_path + "/" + description.getSubmittedFileName();
-        try {
-            description.write(description_path);
-        } catch (IOException e) {
-            return 0;
+    public Integer insertCourse(String login_name, String name, Part description) {
+        Account account = accountRepository.getAccountByLoginName(login_name);
+
+        if ( account == null ) throw new AccountNotFound(String.format("failure to find the account by login name:%s",login_name));
+        else if ( account.getRoles().compareTo(RolesConstant.TEACHER) != 0 ) throw new AccountRolesNonValidate(String.format("account has no right to create course - login name:%s",login_name));
+
+        String save_name = fileUpLoadUtils.save(description);
+        if ( save_name != null ) {
+            Course course = new Course();
+            course.setIdentity(login_name);
+            course.setName(name);
+            course.setDescription(save_name);
+            return courseRepository.insert(course);
         }
-        return courseRepository.insert(courseInsert.build(description.getSubmittedFileName()));
+        else return 0;
     }
 
     public void updateCourse(Course course) {
+        Course course1 = getCourseById(course.getId());
+
+        course1.merge(course);
+
+        courseRepository.update(course1);
     }
 
     public void deleteCourseById(Integer id) {
