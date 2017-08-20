@@ -22,4 +22,6 @@ public class ResponseCodeMessage {
 
     public static final int COURSE_NOT_FOUND_CODE = -5;
     public static final String COURSE_NOT_FOUND_MESSAGE = "failure to find the course";
+
+
 }

@@ -1,7 +1,9 @@
 package cn.edu.buaa.tricloud.mooc.Request;
 
 import cn.edu.buaa.tricloud.mooc.domain.Course;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.servlet.http.Part;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -14,9 +16,6 @@ public class CourseInsert {
 
     @NotNull
     private String teacher_name;
-
-    @NotNull
-    private String description;
 
     public String getName() {
         return name;
@@ -34,18 +33,11 @@ public class CourseInsert {
         this.teacher_name = teacher_name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Course build() {
+    public Course build(String description) {
         Course course = new Course();
         course.setName(getName());
         course.setTeacher_name(getTeacher_name());
+        course.setDescription(description);
         return course;
     }
 

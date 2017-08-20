@@ -3,6 +3,7 @@ package cn.edu.buaa.tricloud.mooc.service;
 import cn.edu.buaa.tricloud.mooc.Request.CourseInsert;
 import cn.edu.buaa.tricloud.mooc.domain.Course;
 
+import javax.servlet.http.Part;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public interface CourseService {
 
     Course getCourseById(Integer id);
 
-    Integer insertCourse(CourseInsert course);
+    Integer insertCourse(CourseInsert course, Part description);
 
     void updateCourse(Course course);
 

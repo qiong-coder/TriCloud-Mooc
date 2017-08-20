@@ -4,6 +4,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
 
 /**
  * Created by qixiang on 8/14/17.
@@ -17,7 +19,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { WebSecurityConfig.class, RootConfig.class, HibernateConfig.class };
+        return new Class<?>[] { /*WebSecurityConfig.class,*/ RootConfig.class, HibernateConfig.class };
     }
 
     @Override
@@ -30,9 +32,11 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         return new Filter[] { new CharacterEncodingFilter("utf-8", true) };
     }
 
-//    @Override
-//    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-//        registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
-//        super.customizeRegistration(registration);
-//    }
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+        //registration.setMultipartConfig(new MultipartConfigElement(System.getProperty("catalina.base")+"/tricloud-mooc/temporary/"));
+        registration.setMultipartConfig(new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
+        super.customizeRegistration(registration);
+    }
 }

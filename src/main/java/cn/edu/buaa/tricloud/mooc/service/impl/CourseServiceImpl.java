@@ -8,6 +8,9 @@ import cn.edu.buaa.tricloud.mooc.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +18,14 @@ import java.util.List;
  */
 @Component("CourseService")
 public class CourseServiceImpl implements CourseService {
+
+    private static String medias_path = System.getProperty("catalina.base")
+            + "/tricloud-mooc/TriCloud-Mooc/WEB-INF/medias";
+
+    static {
+        File dir = new File(medias_path);
+        if ( !dir.exists() ) dir.mkdirs();
+    }
 
     @Autowired
     CourseRepository courseRepository;
@@ -31,8 +42,14 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
-    public Integer insertCourse(CourseInsert courseInsert) {
-        return courseRepository.insert(courseInsert.build());
+    public Integer insertCourse(CourseInsert courseInsert, Part description) {
+        String description_path = medias_path + "/" + description.getSubmittedFileName();
+        try {
+            description.write(description_path);
+        } catch (IOException e) {
+            return 0;
+        }
+        return courseRepository.insert(courseInsert.build(description.getSubmittedFileName()));
     }
 
     public void updateCourse(Course course) {
