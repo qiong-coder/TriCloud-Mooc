@@ -3,6 +3,7 @@ package cn.edu.buaa.tricloud.mooc.exception.advice;
 import cn.edu.buaa.tricloud.mooc.Response.Response;
 import cn.edu.buaa.tricloud.mooc.Response.ResponseBuilder;
 import cn.edu.buaa.tricloud.mooc.Response.ResponseCodeMessage;
+import cn.edu.buaa.tricloud.mooc.exception.AttachmentUploadError;
 import cn.edu.buaa.tricloud.mooc.exception.QueryParameterError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,8 +35,8 @@ public class CommonAdvice {
         return ResponseBuilder.build(ResponseCodeMessage.QUERY_PARAMETERS_ERROR_CODE, strBuilder.toString());
     }
 
-//    @ExceptionHandler(NoHandlerFoundException.class)
-//    public Response noHandlerFoundException(NoHandlerFoundException e) {
-//        return ResponseBuilder.build(ResponseCodeMessage.ERROR_CODE,e.getMessage());
-//    }
+    @ExceptionHandler(AttachmentUploadError.class)
+    public Response noHandlerFoundException(AttachmentUploadError e) {
+        return ResponseBuilder.build(0,e);
+    }
 }

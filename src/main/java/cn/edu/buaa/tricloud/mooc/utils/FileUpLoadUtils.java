@@ -1,5 +1,6 @@
 package cn.edu.buaa.tricloud.mooc.utils;
 
+import cn.edu.buaa.tricloud.mooc.exception.AttachmentUploadError;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
@@ -21,12 +22,13 @@ public class FileUpLoadUtils implements ServletContextAware {
     }
 
     public String save(String prefix, Part file) {
+        String uri = "/" + prefix + "/" + file.getSubmittedFileName();
         try {
-            file.write(media_path + "/" + prefix + "/" + file.getSubmittedFileName());
+            file.write(media_path + uri);
         } catch (IOException ex) {
-            return null;
+            throw new AttachmentUploadError(ex.getLocalizedMessage());
         }
-        return file.getSubmittedFileName();
+        return uri;
     }
 
 }

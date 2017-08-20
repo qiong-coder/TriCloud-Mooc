@@ -1,6 +1,7 @@
 package cn.edu.buaa.tricloud.mooc.service;
 
 import cn.edu.buaa.tricloud.mooc.Request.CourseInsert;
+import cn.edu.buaa.tricloud.mooc.Response.CourseResponse;
 import cn.edu.buaa.tricloud.mooc.domain.Course;
 
 import javax.servlet.http.Part;
@@ -11,13 +12,15 @@ import java.util.List;
  */
 public interface CourseService {
 
-    List<Course> listByLoginName(String login_name);
+    CourseResponse listByLoginName(String login_name);
 
     Course getCourseById(Integer id);
 
-    Integer insertCourse(String login_name, String name, Part attacchment);
+    CourseResponse getCourseResponseById(Integer id);
 
-    void updateCourse(Course course);
+    Integer insertCourse(String login_name, String name, Part attachment);
+
+    void updateCourse(Integer id, String name, Part attachment);
 
     void deleteCourseById(Integer id);
 

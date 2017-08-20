@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
 //    }
 
     public void insertAccount(AccountRegister accountRegister) {
-        if ( accountRepository.getAccountByLoginName(accountRegister.getLoginame()) != null )
+        if ( accountRepository.getAccountByLoginName(accountRegister.getLogin_name()) != null )
             throw new AccountDuplicate("failure to insert account because of duplication");
         accountRepository.insertAccount(accountRegister.build());
     }

@@ -15,6 +15,6 @@ CREATE TABLE `Account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
-CREATE INDEX id_number_index ON Account(id_number);
+CREATE INDEX id_number_index ON Account(login_name);
 
 INSERT Account(login_name,username,password,roles,school) VALUES("administrator","administrator", "administrator", "ROLE_ADMIN", 0);

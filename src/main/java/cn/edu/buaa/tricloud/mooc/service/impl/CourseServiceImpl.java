@@ -1,5 +1,7 @@
 package cn.edu.buaa.tricloud.mooc.service.impl;
 
+import cn.edu.buaa.tricloud.mooc.Response.AccountResponse;
+import cn.edu.buaa.tricloud.mooc.Response.CourseResponse;
 import cn.edu.buaa.tricloud.mooc.domain.Account;
 import cn.edu.buaa.tricloud.mooc.domain.Course;
 import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
@@ -33,13 +35,15 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     FileUpLoadUtils fileUpLoadUtils;
 
-    public List<Course> listByLoginName(String login_name) {
-        Account account = accountService.getAccountByLoginName(login_name);
+    public CourseResponse listByLoginName(String login_name) {
+
+        AccountResponse accountResponse = accountService.getAccountResponseByLoginName(login_name);
 
         List<Course> courses = courseRepository.listByLoginName(login_name);
-        if ( courses == null && courses.isEmpty() ) throw new CourseNotFound(String.format("failure to find the courses with login_name:%s",login_name));
-        return courses;
+
+        return CourseResponse.build(accountResponse,courses);
     }
+
 
     public Course getCourseById(Integer id) {
         Course course = courseRepository.get(id);
@@ -47,28 +51,42 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
+
+    public CourseResponse getCourseResponseById(Integer id) {
+        Course course = courseRepository.get(id);
+        if ( course == null ) throw new CourseNotFound(String.format("failure to find the course by id:%d",id));
+
+        AccountResponse accountResponse = accountService.getAccountResponseByLoginName(course.getLogin_name());
+
+        return CourseResponse.build(accountResponse,course);
+    }
+
     public Integer insertCourse(String login_name, String name, Part attachment) {
         Account account = accountService.getAccountByLoginName(login_name);
 
         if ( account.getRoles().compareTo(RolesConstant.TEACHER) != 0 ) throw new AccountRolesNonValidate(String.format("account has no right to create course - login name:%s",login_name));
 
-        String save_name = fileUpLoadUtils.save(login_name, attachment);
-        if ( save_name != null ) {
-            Course course = new Course();
-            course.setLogin_name(login_name);
-            course.setName(name);
-            course.setAttachment(save_name);
-            return courseRepository.insert(course);
-        }
-        else return 0;
+        Course course = new Course();
+        course.setLogin_name(login_name);
+        course.setName(name);
+        course.setAttachment(fileUpLoadUtils.save(login_name, attachment));
+
+        return courseRepository.insert(course);
     }
 
-    public void updateCourse(Course course) {
-        Course course1 = getCourseById(course.getId());
+    public void updateCourse(Integer id, String name, Part attachment) {
+        Course course = courseRepository.get(id);
 
-        course1.merge(course);
+        if ( course == null ) throw new CourseNotFound(String.format("failure to find the course by id:%s",id));
 
-        courseRepository.update(course1);
+        if ( name != null )
+            course.setName(name);
+
+        if ( attachment.getSize() != 0 ) {
+            course.setAttachment(fileUpLoadUtils.save(course.getLogin_name(), attachment));
+        }
+
+        courseRepository.update(course);
     }
 
     public void deleteCourseById(Integer id) {

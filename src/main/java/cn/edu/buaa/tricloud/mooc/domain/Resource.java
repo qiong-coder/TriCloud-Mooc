@@ -3,16 +3,19 @@ package cn.edu.buaa.tricloud.mooc.domain;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
- * Created by qixiang on 8/19/17.
+ * Created by qixiang on 8/20/17.
  */
-@Entity(name = "Course")
+@Entity(name = "Resource")
 @DynamicUpdate
 @DynamicInsert
-public class Course {
+public class Resource {
 
     @Id
     @GeneratedValue
@@ -20,9 +23,11 @@ public class Course {
 
     private String name;
 
-    private String login_name;
+    private Integer cid;
 
     private String attachment;
+
+    private Integer type;
 
     private Integer status;
 
@@ -48,12 +53,12 @@ public class Course {
         this.name = name;
     }
 
-    public String getLogin_name() {
-        return login_name;
+    public Integer getCid() {
+        return cid;
     }
 
-    public void setLogin_name(String login_name) {
-        this.login_name = login_name;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
     public String getAttachment() {
@@ -62,6 +67,14 @@ public class Course {
 
     public void setAttachment(String attachment) {
         this.attachment = attachment;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getStatus() {

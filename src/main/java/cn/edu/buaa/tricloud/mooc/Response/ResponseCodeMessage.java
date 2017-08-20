@@ -29,4 +29,6 @@ public class ResponseCodeMessage {
     public static final int ACCOUNT_PASSWORD_ERROR_CODE = -7;
     public static final String ACCOUNT_PASSWORD_ERROR_MESSAGE = "user's password is not correct";
 
+    public static final int ATTACHMENT_UPLOAD_ERROR_CODE = -8;
+
 }
