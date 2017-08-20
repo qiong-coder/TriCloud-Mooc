@@ -20,9 +20,9 @@ public class FileUpLoadUtils implements ServletContextAware {
         media_path = servletContext.getRealPath("/WEB-INF/medias");
     }
 
-    public String save(Part file) {
+    public String save(String prefix, Part file) {
         try {
-            file.write(media_path + "/" + file.getSubmittedFileName());
+            file.write(media_path + "/" + prefix + "/" + file.getSubmittedFileName());
         } catch (IOException ex) {
             return null;
         }

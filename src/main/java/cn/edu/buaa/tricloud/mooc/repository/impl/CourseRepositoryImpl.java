@@ -3,6 +3,7 @@ package cn.edu.buaa.tricloud.mooc.repository.impl;
 import cn.edu.buaa.tricloud.mooc.domain.Course;
 import cn.edu.buaa.tricloud.mooc.repository.CourseRepository;
 import cn.edu.buaa.tricloud.mooc.repository.HibernateSessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +16,9 @@ import java.util.List;
 @Transactional
 public class CourseRepositoryImpl extends HibernateSessionFactory implements CourseRepository {
 
-    public List<Course> list() {
-        return (List<Course>) getCurrentSession().createCriteria(Course.class).list();
+    public List<Course> listByLoginName(String login_name) {
+        return (List<Course>) getCurrentSession().createCriteria(Course.class)
+                .add(Restrictions.eq("login_name",login_name)).list();
     }
 
     public Course get(Integer id) {

@@ -44,6 +44,6 @@ public class AccountAction {
 
     @RequestMapping(value = "/{login_name}/", method = RequestMethod.GET)
     public Response get(@PathVariable("login_name") String login_name) {
-        return ResponseBuilder.build(accountService.getAccountByLoginName(login_name));
+        return ResponseBuilder.build(accountService.getAccountResponseByLoginName(login_name));
     }
 }

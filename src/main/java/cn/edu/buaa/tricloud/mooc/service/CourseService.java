@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface CourseService {
 
-    List<Course> listAllCourses();
+    List<Course> listByLoginName(String login_name);
 
     Course getCourseById(Integer id);
 
-    Integer insertCourse(String login_name, String name, Part description);
+    Integer insertCourse(String login_name, String name, Part attacchment);
 
     void updateCourse(Course course);
 

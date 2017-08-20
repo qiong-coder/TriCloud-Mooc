@@ -1,9 +1,12 @@
 package cn.edu.buaa.tricloud.mooc.service.impl;
 
 import cn.edu.buaa.tricloud.mooc.Request.AccountRegister;
+import cn.edu.buaa.tricloud.mooc.Response.AccountResponse;
+import cn.edu.buaa.tricloud.mooc.Response.ResponseCodeMessage;
 import cn.edu.buaa.tricloud.mooc.domain.Account;
 import cn.edu.buaa.tricloud.mooc.exception.AccountDuplicate;
 import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
+import cn.edu.buaa.tricloud.mooc.exception.AccountPasswordError;
 import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import cn.edu.buaa.tricloud.mooc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +40,15 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
-    public boolean checkAccount(String loginName, String password) {
-        Account account = getAccountByLoginName(loginName);
-        return account.getPassword().compareTo(password) == 0;
+    public AccountResponse getAccountResponseByLoginName(String loginName) {
+        return AccountResponse.build(getAccountByLoginName(loginName));
+    }
+
+    public AccountResponse checkAccount(String loginName, String password) {
+        Account account = accountRepository.getAccountByLoginName(loginName);
+        if ( account == null ) throw new AccountNotFound(String.format("failure to find the account by login_name:%s",loginName));
+        if ( account.getPassword().compareTo(password) == 0 ) return AccountResponse.build(account);
+        else throw new AccountPasswordError(ResponseCodeMessage.ACCOUNT_PASSWORD_ERROR_MESSAGE);
     }
 
 //    public int updateAccount(Account account) {

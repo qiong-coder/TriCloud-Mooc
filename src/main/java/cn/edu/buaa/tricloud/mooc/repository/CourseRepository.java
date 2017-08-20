@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface CourseRepository {
 
-    List<Course> list();
+    List<Course> listByLoginName(String login_name);
 
     Course get(Integer id);
 

@@ -26,4 +26,7 @@ public class ResponseCodeMessage {
     public static final int ACCOUNT_ROLE_NONVALIDATE_CODE = -6;
     public static final String ACCOUNT_ROLE_NONVALIDATE_MESSAGE = "account's role is nonvalidate";
 
+    public static final int ACCOUNT_PASSWORD_ERROR_CODE = -7;
+    public static final String ACCOUNT_PASSWORD_ERROR_MESSAGE = "user's password is not correct";
+
 }

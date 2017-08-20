@@ -20,13 +20,9 @@ public class Course {
 
     private String name;
 
-    private String identity;
+    private String login_name;
 
-    private String description;
-
-    private String ppt;
-
-    private String vides;
+    private String attachment;
 
     private Integer status;
 
@@ -39,8 +35,6 @@ public class Course {
     public void merge(Course course)
     {
         if ( course.getName() != null ) name = course.getName();
-        if ( course.getPpt() != null ) ppt = course.getPpt();
-        if ( course.getVides() != null ) vides = course.getVides();
         if ( course.getStatus() != null ) status = course.getStatus();
     }
 
@@ -60,36 +54,20 @@ public class Course {
         this.name = name;
     }
 
-    public String getIdentity() {
-        return identity;
+    public String getLogin_name() {
+        return login_name;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setLogin_name(String login_name) {
+        this.login_name = login_name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAttachment() {
+        return attachment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPpt() {
-        return ppt;
-    }
-
-    public void setPpt(String ppt) {
-        this.ppt = ppt;
-    }
-
-    public String getVides() {
-        return vides;
-    }
-
-    public void setVides(String vides) {
-        this.vides = vides;
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
     }
 
     public Integer getStatus() {

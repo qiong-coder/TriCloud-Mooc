@@ -4,7 +4,9 @@ import cn.edu.buaa.tricloud.mooc.Response.Response;
 import cn.edu.buaa.tricloud.mooc.Response.ResponseBuilder;
 import cn.edu.buaa.tricloud.mooc.exception.AccountDuplicate;
 import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
+import cn.edu.buaa.tricloud.mooc.exception.AccountPasswordError;
 import cn.edu.buaa.tricloud.mooc.exception.AccountRolesNonValidate;
+import jdk.Exported;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -30,4 +32,10 @@ public class AccountAdvice  {
     public Response roleNonValidate(AccountRolesNonValidate accountRolesNonValidate) {
         return ResponseBuilder.build(0,accountRolesNonValidate);
     }
+
+    @ExceptionHandler(AccountPasswordError.class)
+    public Response passwordError(AccountPasswordError accountPasswordError) {
+        return ResponseBuilder.build(0,accountPasswordError);
+    }
 }
+

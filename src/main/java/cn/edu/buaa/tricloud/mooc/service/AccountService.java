@@ -1,7 +1,9 @@
 package cn.edu.buaa.tricloud.mooc.service;
 
 import cn.edu.buaa.tricloud.mooc.Request.AccountRegister;
+import cn.edu.buaa.tricloud.mooc.Response.AccountResponse;
 import cn.edu.buaa.tricloud.mooc.domain.Account;
+import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -15,7 +17,9 @@ public interface AccountService extends UserDetailsService {
 
     Account getAccountByLoginName(String loginName);
 
-    boolean checkAccount(String loginName, String password);
+    AccountResponse getAccountResponseByLoginName(String loginName);
+
+    AccountResponse checkAccount(String loginName, String password);
 
     //int updateAccount(Account account);
 

@@ -7,6 +7,7 @@ import cn.edu.buaa.tricloud.mooc.exception.AccountRolesNonValidate;
 import cn.edu.buaa.tricloud.mooc.exception.CourseNotFound;
 import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import cn.edu.buaa.tricloud.mooc.repository.CourseRepository;
+import cn.edu.buaa.tricloud.mooc.service.AccountService;
 import cn.edu.buaa.tricloud.mooc.service.CourseService;
 import cn.edu.buaa.tricloud.mooc.utils.FileUpLoadUtils;
 import cn.edu.buaa.tricloud.mooc.utils.RolesConstant;
@@ -27,14 +28,16 @@ public class CourseServiceImpl implements CourseService {
     CourseRepository courseRepository;
 
     @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
 
     @Autowired
     FileUpLoadUtils fileUpLoadUtils;
 
-    public List<Course> listAllCourses() {
-        List<Course> courses = courseRepository.list();
-        if ( courses == null && courses.isEmpty() ) throw new CourseNotFound(String.format("failure to find the courses"));
+    public List<Course> listByLoginName(String login_name) {
+        Account account = accountService.getAccountByLoginName(login_name);
+
+        List<Course> courses = courseRepository.listByLoginName(login_name);
+        if ( courses == null && courses.isEmpty() ) throw new CourseNotFound(String.format("failure to find the courses with login_name:%s",login_name));
         return courses;
     }
 
@@ -44,18 +47,17 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
-    public Integer insertCourse(String login_name, String name, Part description) {
-        Account account = accountRepository.getAccountByLoginName(login_name);
+    public Integer insertCourse(String login_name, String name, Part attachment) {
+        Account account = accountService.getAccountByLoginName(login_name);
 
-        if ( account == null ) throw new AccountNotFound(String.format("failure to find the account by login name:%s",login_name));
-        else if ( account.getRoles().compareTo(RolesConstant.TEACHER) != 0 ) throw new AccountRolesNonValidate(String.format("account has no right to create course - login name:%s",login_name));
+        if ( account.getRoles().compareTo(RolesConstant.TEACHER) != 0 ) throw new AccountRolesNonValidate(String.format("account has no right to create course - login name:%s",login_name));
 
-        String save_name = fileUpLoadUtils.save(description);
+        String save_name = fileUpLoadUtils.save(login_name, attachment);
         if ( save_name != null ) {
             Course course = new Course();
-            course.setIdentity(login_name);
+            course.setLogin_name(login_name);
             course.setName(name);
-            course.setDescription(save_name);
+            course.setAttachment(save_name);
             return courseRepository.insert(course);
         }
         else return 0;

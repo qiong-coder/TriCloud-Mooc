@@ -38,7 +38,6 @@ public class CourseInsert {
     public Course build(String description) {
         Course course = new Course();
         course.setName(getName());
-        course.setDescription(description);
         return course;
     }
 

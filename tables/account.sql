@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
--- Table structure for Order
+-- Table structure for Account
 -- ----------------------------
 DROP TABLE IF EXISTS `Account`;
 CREATE TABLE `Account` (
