@@ -62,42 +62,4 @@ public class CourseAction {
         return ResponseBuilder.build(null);
     }
 
-
-    @RequestMapping(value = "/order/{login_name}/{cid}/", method = RequestMethod.POST)
-    public Response insertOrderCourse(@PathVariable("login_name") String login_name,
-                                      @PathVariable("cid") Integer cid)
-    {
-        return null;
-    }
-
-    @RequestMapping(value = "/order/{login_name}/", method = RequestMethod.GET)
-    public Response getOrderCourses(@PathVariable("login_name") String login_name)
-    {
-        return null;
-    }
-
-    @RequestMapping(value = "/order/{oid}/", method = RequestMethod.PUT)
-    public Response updateOrderCourse(@PathVariable("oid") Integer oid)
-    {
-        return null;
-    }
-
-    @RequestMapping(value = "/order/{oid}/", method = RequestMethod.DELETE)
-    public Response deleteOrderCourse(@PathVariable("oid") Integer oid)
-    {
-        return null;
-    }
-
-    @RequestMapping(value = "/order/machine/{oid}/{type}", method = RequestMethod.PUT)
-    public Response updateOrderCourseMachine(@PathVariable("oid") Integer oid,
-                                             @PathVariable("type") Integer type)
-    {
-        return null;
-    }
-
-    @RequestMapping(value = "/order/number/{cid}/", method = RequestMethod.GET)
-    public Response getOrderNumberByCourseId(@PathVariable("cid") Integer cid)
-    {
-        return null;
-    }
 }

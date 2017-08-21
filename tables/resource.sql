@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
--- Table structure for Order
+-- Table structure for CourseOrder
 -- ----------------------------
 DROP TABLE IF EXISTS `Resource`;
 CREATE TABLE `Resource` (

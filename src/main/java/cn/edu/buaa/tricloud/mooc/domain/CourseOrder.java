@@ -11,10 +11,10 @@ import java.sql.Timestamp;
 /**
  * Created by qixiang on 8/21/17.
  */
-@Entity(name = "Order")
+@Entity(name = "CourseOrder")
 @DynamicUpdate
 @DynamicInsert
-public class Order {
+public class CourseOrder {
 
     @Id
     @GeneratedValue
@@ -50,6 +50,14 @@ public class Order {
         this.login_name = login_name;
     }
 
+    public String getMachine() {
+        return machine;
+    }
+
+    public void setMachine(String machine) {
+        this.machine = machine;
+    }
+
     public Integer getSchool() {
         return school;
     }
@@ -64,14 +72,6 @@ public class Order {
 
     public void setCid(Integer cid) {
         this.cid = cid;
-    }
-
-    public String getMachine() {
-        return machine;
-    }
-
-    public void setMachine(String machine) {
-        this.machine = machine;
     }
 
     public Integer getStatus() {
