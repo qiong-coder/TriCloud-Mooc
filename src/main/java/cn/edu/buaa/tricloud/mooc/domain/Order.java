@@ -1,37 +1,37 @@
 package cn.edu.buaa.tricloud.mooc.domain;
 
-import org.hibernate.annotations.*;
-import javax.persistence.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
- * Created by stupid-coder on 8/15/17.
+ * Created by qixiang on 8/21/17.
  */
-@Entity(name = "Account")
+@Entity(name = "Order")
 @DynamicUpdate
 @DynamicInsert
-public class Account {
+public class Order {
 
     @Id
     @GeneratedValue
     private Integer id;
 
-    @NaturalId
-    @Column(unique = true)
     private String login_name;
-
-    private String username;
-
-    private String password;
-
-    private String roles;
 
     private Integer school;
 
+    private Integer cid;
+
+    private String machine;
+
     private Integer status;
 
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private Timestamp modify_time;
+
     private Timestamp create_time;
 
     public Integer getId() {
@@ -50,37 +50,28 @@ public class Account {
         this.login_name = login_name;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
-
     public Integer getSchool() {
         return school;
     }
 
     public void setSchool(Integer school) {
         this.school = school;
+    }
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
+
+    public String getMachine() {
+        return machine;
+    }
+
+    public void setMachine(String machine) {
+        this.machine = machine;
     }
 
     public Integer getStatus() {
@@ -91,6 +82,14 @@ public class Account {
         this.status = status;
     }
 
+    public Timestamp getModify_time() {
+        return modify_time;
+    }
+
+    public void setModify_time(Timestamp modify_time) {
+        this.modify_time = modify_time;
+    }
+
     public Timestamp getCreate_time() {
         return create_time;
     }
@@ -98,5 +97,4 @@ public class Account {
     public void setCreate_time(Timestamp create_time) {
         this.create_time = create_time;
     }
-
 }

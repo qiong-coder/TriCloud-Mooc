@@ -2,6 +2,7 @@ package cn.edu.buaa.tricloud.mooc.Response;
 
 import cn.edu.buaa.tricloud.mooc.domain.Account;
 import cn.edu.buaa.tricloud.mooc.domain.Course;
+import cn.edu.buaa.tricloud.mooc.domain.Resource;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
@@ -19,19 +20,21 @@ public class CourseResponse {
 
     private List<Course> courses;
 
+    private List<Resource> resources;
+
     public static CourseResponse build(AccountResponse accountResponse, List<Course> courses) {
         CourseResponse courseResponse = new CourseResponse();
         courseResponse.setAccount(accountResponse);
         if ( courses != null ) courseResponse.setCourses(courses);
-        courseResponse.setCourses(new ArrayList<Course>());
+        else courseResponse.setCourses(new ArrayList<Course>());
         return courseResponse;
     }
 
-    public static CourseResponse build(AccountResponse accountResponse, Course course) {
+    public static CourseResponse build(AccountResponse accountResponse, Course course, List<Resource> resources) {
         CourseResponse courseResponse = new CourseResponse();
         courseResponse.setAccount(accountResponse);
-        if ( course != null ) courseResponse.setCourse(course);
-        courseResponse.setCourses(new ArrayList<Course>());
+        courseResponse.setCourse(course);
+        courseResponse.setResources(resources);
         return courseResponse;
     }
 
@@ -57,5 +60,13 @@ public class CourseResponse {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }

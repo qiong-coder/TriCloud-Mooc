@@ -9,6 +9,7 @@ import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
 import cn.edu.buaa.tricloud.mooc.exception.AccountPasswordError;
 import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import cn.edu.buaa.tricloud.mooc.service.AccountService;
+import cn.edu.buaa.tricloud.mooc.utils.FileUpLoadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +29,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    FileUpLoadUtils fileUpLoadUtils;
 
     public List<Account> getAccounts() {
         List<Account> accountList = accountRepository.getAccounts();
@@ -59,6 +63,7 @@ public class AccountServiceImpl implements AccountService {
         if ( accountRepository.getAccountByLoginName(accountRegister.getLogin_name()) != null )
             throw new AccountDuplicate("failure to insert account because of duplication");
         accountRepository.insertAccount(accountRegister.build());
+        fileUpLoadUtils.mkdir(accountRegister.getLogin_name());
     }
 
     public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {

@@ -18,7 +18,7 @@ public class CourseRepositoryImpl extends HibernateSessionFactory implements Cou
 
     public List<Course> listByLoginName(String login_name) {
         return (List<Course>) getCurrentSession().createCriteria(Course.class)
-                .add(Restrictions.eq("login_name",login_name)).list();
+                .add(Restrictions.eq("login_name", login_name)).list();
     }
 
     public Course get(Integer id) {

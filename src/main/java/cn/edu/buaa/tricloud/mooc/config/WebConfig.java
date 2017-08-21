@@ -38,10 +38,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations(
-                "/WEB-INF/images/");
-        registry.addResourceHandler("/medias/**").addResourceLocations(
-                "/WEB-INF/medias/");
+////        registry.addResourceHandler("/images/**").addResourceLocations(
+////                "/images/");
+//        registry.addResourceHandler("/medias/**").addResourceLocations(
+//                "/medias/");
         super.addResourceHandlers(registry);
     }
 

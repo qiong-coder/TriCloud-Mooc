@@ -22,7 +22,7 @@ public class CourseAction {
     @Autowired
     CourseService courseService;
 
-    @RequestMapping(value = "/{login_name}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/login_name/{login_name}/", method = RequestMethod.GET)
     public Response list(@PathVariable("login_name") String login_name) {
         return ResponseBuilder.build(courseService.listByLoginName(login_name));
     }
@@ -30,6 +30,11 @@ public class CourseAction {
     @RequestMapping(value = "/{id}/", method = RequestMethod.GET)
     public Response get(@PathVariable("id") Integer id) {
         return ResponseBuilder.build(courseService.getCourseResponseById(id));
+    }
+
+    @RequestMapping(value = "/school/{id}/", method = RequestMethod.GET)
+    public Response getBySchool(@PathVariable("id") Integer id) {
+        return ResponseBuilder.build(courseService.listCourseBySchoolId(id));
     }
 
     @RequestMapping(value = "/{login_name}/", method = RequestMethod.POST)
@@ -57,4 +62,42 @@ public class CourseAction {
         return ResponseBuilder.build(null);
     }
 
+
+    @RequestMapping(value = "/order/{login_name}/{cid}/", method = RequestMethod.POST)
+    public Response insertOrderCourse(@PathVariable("login_name") String login_name,
+                                      @PathVariable("cid") Integer cid)
+    {
+        return null;
+    }
+
+    @RequestMapping(value = "/order/{login_name}/", method = RequestMethod.GET)
+    public Response getOrderCourses(@PathVariable("login_name") String login_name)
+    {
+        return null;
+    }
+
+    @RequestMapping(value = "/order/{oid}/", method = RequestMethod.PUT)
+    public Response updateOrderCourse(@PathVariable("oid") Integer oid)
+    {
+        return null;
+    }
+
+    @RequestMapping(value = "/order/{oid}/", method = RequestMethod.DELETE)
+    public Response deleteOrderCourse(@PathVariable("oid") Integer oid)
+    {
+        return null;
+    }
+
+    @RequestMapping(value = "/order/machine/{oid}/{type}", method = RequestMethod.PUT)
+    public Response updateOrderCourseMachine(@PathVariable("oid") Integer oid,
+                                             @PathVariable("type") Integer type)
+    {
+        return null;
+    }
+
+    @RequestMapping(value = "/order/number/{cid}/", method = RequestMethod.GET)
+    public Response getOrderNumberByCourseId(@PathVariable("cid") Integer cid)
+    {
+        return null;
+    }
 }

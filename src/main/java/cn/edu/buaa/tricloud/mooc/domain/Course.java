@@ -26,10 +26,8 @@ public class Course {
 
     private Integer status;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp modify_time;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp create_time;
 
     public Integer getId() {

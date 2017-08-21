@@ -1,5 +1,7 @@
 package cn.edu.buaa.tricloud.mooc.Request;
 
+import cn.edu.buaa.tricloud.mooc.domain.Resource;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,5 +30,14 @@ public class ResourceInsert {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Resource build(Integer cid, String attachment) {
+        Resource resource = new Resource();
+        resource.setName(name);
+        resource.setCid(cid);
+        resource.setType(type);
+        resource.setAttachment(attachment);
+        return resource;
     }
 }

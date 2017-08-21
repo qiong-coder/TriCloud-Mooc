@@ -6,6 +6,7 @@ import cn.edu.buaa.tricloud.mooc.Response.Response;
 import cn.edu.buaa.tricloud.mooc.Response.ResponseBuilder;
 import cn.edu.buaa.tricloud.mooc.exception.QueryParameterError;
 import cn.edu.buaa.tricloud.mooc.service.AccountService;
+import cn.edu.buaa.tricloud.mooc.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -27,9 +28,9 @@ public class AccountAction {
     AccountService accountService;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Response register(@Valid AccountRegister accountRegister, BindingResult errors)
+    public Response register(@Valid @RequestBody AccountRegister accountRegister, BindingResult errors)
     {
-       if ( errors.hasErrors() ) throw new QueryParameterError(errors.toString());
+       if ( errors.hasErrors() ) throw new QueryParameterError(BindingResultUtil.getMessage(errors));
        accountService.insertAccount(accountRegister);
        return ResponseBuilder.build(null);
     }

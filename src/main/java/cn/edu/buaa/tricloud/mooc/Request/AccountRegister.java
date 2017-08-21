@@ -11,15 +11,12 @@ import javax.validation.constraints.Size;
 public class AccountRegister {
 
     @NotNull
-    //@Size(min=6,max=20)
     private String login_name;
 
     @NotNull
-    //@Size(min=2,max=4)
     private String username;
 
     @NotNull
-    //@Size(min=6,max=20)
     private String password;
 
     @NotNull
@@ -71,6 +68,7 @@ public class AccountRegister {
     public Account build() {
         Account account = new Account();
         account.setLogin_name(getLogin_name());
+        account.setUsername(getUsername());
         account.setPassword(getPassword());
         account.setRoles(getRoles());
         account.setSchool(getSchool());

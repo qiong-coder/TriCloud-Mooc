@@ -31,4 +31,10 @@ public class ResponseCodeMessage {
 
     public static final int ATTACHMENT_UPLOAD_ERROR_CODE = -8;
 
+    public static final int RESOURCE_NOT_FOUND_CODE = -9;
+
+    public static final int RESOURCE_NOT_IN_COURSE_CODE = -10;
+
+    public static final int ORDER_NOT_FOUND_CODE = -11;
+
 }

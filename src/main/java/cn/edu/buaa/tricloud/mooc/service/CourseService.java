@@ -14,6 +14,8 @@ public interface CourseService {
 
     CourseResponse listByLoginName(String login_name);
 
+    List<Course> listCourseBySchoolId(Integer id);
+
     Course getCourseById(Integer id);
 
     CourseResponse getCourseResponseById(Integer id);

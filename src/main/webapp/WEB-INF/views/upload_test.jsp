@@ -17,7 +17,7 @@
 <form method="post" enctype="multipart/form-data" action="/course/administrator/">
     课程名称：<input type="text" name="name"/><br/>
     <%--教师名称：<input type="text" name="teacher_name" /><br/>--%>
-    课程描述：<input type="file" name="description" accept="application/pdf,image/jpeg,image/png"/><br />
+    课程描述：<input type="file" name="attachment" accept="application/pdf,image/jpeg,image/png"/><br />
     <input type="submit" value="Upload">
 </form>
 

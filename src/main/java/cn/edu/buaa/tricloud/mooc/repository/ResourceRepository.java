@@ -11,6 +11,12 @@ public interface ResourceRepository {
 
     List<Resource> getByCourse(Integer cid);
 
+    Resource getById(Integer rid);
 
+    Integer insert(Resource resource);
+
+    void update(Resource resource);
+
+    void delete(Integer id);
 
 }
