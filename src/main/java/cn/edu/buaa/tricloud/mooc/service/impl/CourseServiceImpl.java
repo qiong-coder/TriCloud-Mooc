@@ -9,6 +9,7 @@ import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
 import cn.edu.buaa.tricloud.mooc.exception.AccountRolesNonValidate;
 import cn.edu.buaa.tricloud.mooc.exception.CourseNotFound;
 import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
+import cn.edu.buaa.tricloud.mooc.repository.CourseOrderRepository;
 import cn.edu.buaa.tricloud.mooc.repository.CourseRepository;
 import cn.edu.buaa.tricloud.mooc.repository.ResourceRepository;
 import cn.edu.buaa.tricloud.mooc.service.AccountService;
@@ -37,6 +38,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     ResourceRepository resourceRepository;
+
+    @Autowired
+    CourseOrderRepository courseOrderRepository;
 
     @Autowired
     FileUpLoadUtils fileUpLoadUtils;
@@ -119,6 +123,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     public void deleteCourseById(Integer id) {
-        courseRepository.delete(id);
+        Course course = getCourseById(id);
+        if ( course == null ) return;
+        else {
+            fileUpLoadUtils.delete(course.getAttachment());
+            courseRepository.delete(course);
+            resourceRepository.deleteByCourseId(id);
+            courseOrderRepository.deleteByCourseId(id);
+        }
     }
 }

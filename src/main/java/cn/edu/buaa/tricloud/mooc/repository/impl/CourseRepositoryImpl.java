@@ -34,6 +34,11 @@ public class CourseRepositoryImpl extends HibernateSessionFactory implements Cou
     }
 
     public void delete(Integer id) {
-        getCurrentSession().delete("id", id);
+        getCurrentSession().createQuery("DELETE Course WHERE id=:id")
+                .setParameter("id",id).executeUpdate();
+    }
+
+    public void delete(Course course) {
+        getCurrentSession().delete(course);
     }
 }

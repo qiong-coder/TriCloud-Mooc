@@ -32,7 +32,17 @@ public class ResourceRepositoryImpl extends HibernateSessionFactory implements R
         getCurrentSession().update(resource);
     }
 
+    public void deleteByCourseId(Integer cid) {
+        getCurrentSession().createQuery("DELETE Resource WHERE cid=:cid")
+                .setParameter("cid",cid).executeUpdate();
+    }
+
     public void delete(Integer id) {
-        getCurrentSession().delete("id",id);
+        getCurrentSession().createQuery("DELETE Resource WHERE id=:id")
+                .setParameter("id",id).executeUpdate();
+    }
+
+    public void delete(Resource resource) {
+        getCurrentSession().delete(resource);
     }
 }

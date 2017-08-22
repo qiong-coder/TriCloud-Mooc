@@ -24,4 +24,5 @@ public interface CourseOrderRepository {
 
     void delete(Integer id);
 
+    void deleteByCourseId(Integer cid);
 }

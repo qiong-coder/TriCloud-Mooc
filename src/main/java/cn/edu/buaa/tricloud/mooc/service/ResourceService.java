@@ -18,5 +18,4 @@ public interface ResourceService {
     void update(Integer cid, Integer rid, String name, Part attachment);
 
     void delete(Integer cid, Integer rid);
-
 }

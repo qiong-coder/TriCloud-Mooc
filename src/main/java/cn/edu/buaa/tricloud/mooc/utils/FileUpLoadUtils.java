@@ -52,4 +52,9 @@ public class FileUpLoadUtils implements ServletContextAware {
         return uri;
     }
 
+    public void delete(String attachment) {
+        File file = new File(media_path+"/"+attachment);
+        if ( file.exists() ) file.delete();
+    }
+
 }

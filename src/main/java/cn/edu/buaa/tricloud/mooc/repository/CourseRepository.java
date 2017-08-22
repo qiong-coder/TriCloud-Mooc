@@ -18,4 +18,6 @@ public interface CourseRepository {
 
     void delete(Integer id);
 
+    void delete(Course course);
+
 }

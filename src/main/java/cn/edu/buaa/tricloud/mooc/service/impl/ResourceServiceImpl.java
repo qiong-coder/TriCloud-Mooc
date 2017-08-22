@@ -65,12 +65,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     public void delete(Integer cid, Integer rid) {
-//        Course course = courseRepository.get(cid);
-//        if ( course == null ) throw new CourseNotFound(String.format("failure to find the course by id:%d",cid));
-
-//        Resource resource = resourceRepository.getById(rid);
-//        if ( resource == null ) throw new ResourceNotFound(String.format("failure to find the resource by id:%d",rid));
-
-        resourceRepository.delete(rid);
+        Resource resource = resourceRepository.getById(rid);
+        if ( resource == null ) return;
+        else {
+            fileUpLoadUtils.delete(resource.getAttachment());
+            resourceRepository.delete(resource);
+        }
     }
 }

@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by qixiang on 8/21/17.
  */
-@Repository("OrderRepository")
+@Repository("CourseOrderRepository")
 @Transactional
 public class CourseOrderRepositoryImpl extends HibernateSessionFactory implements CourseOrderRepository {
 
@@ -55,6 +55,13 @@ public class CourseOrderRepositoryImpl extends HibernateSessionFactory implement
     }
 
     public void delete(Integer id) {
-        getCurrentSession().delete("id", id);
+        CourseOrder courseOrder = new CourseOrder();
+        courseOrder.setId(id);
+        getCurrentSession().delete(courseOrder);
+    }
+
+    public void deleteByCourseId(Integer cid) {
+        getCurrentSession().createQuery("DELETE CourseOrder WHERE cid=:cid")
+                .setParameter("cid",cid).executeUpdate();
     }
 }

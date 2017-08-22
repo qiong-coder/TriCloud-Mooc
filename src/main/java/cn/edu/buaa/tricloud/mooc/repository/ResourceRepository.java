@@ -17,6 +17,9 @@ public interface ResourceRepository {
 
     void update(Resource resource);
 
+    void deleteByCourseId(Integer id);
+
     void delete(Integer id);
 
+    void delete(Resource resource);
 }
