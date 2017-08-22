@@ -35,6 +35,11 @@ public class ResponseCodeMessage {
 
     public static final int RESOURCE_NOT_IN_COURSE_CODE = -10;
 
-    public static final int ORDER_NOT_FOUND_CODE = -11;
+    public static final int COURSE_ORDER_NOT_FOUND_CODE = -11;
 
+    public static final int MACHINE_OPERATOR_ERROR_CODE = -12;
+
+    public static final int ACTION_NOT_SUPPORTED_CODE = -13;
+
+    public static final int ACTION_NOT_FOUND_CODE = -14;
 }

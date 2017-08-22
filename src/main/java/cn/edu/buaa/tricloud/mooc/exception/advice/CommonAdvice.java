@@ -3,6 +3,8 @@ package cn.edu.buaa.tricloud.mooc.exception.advice;
 import cn.edu.buaa.tricloud.mooc.Response.Response;
 import cn.edu.buaa.tricloud.mooc.Response.ResponseBuilder;
 import cn.edu.buaa.tricloud.mooc.Response.ResponseCodeMessage;
+import cn.edu.buaa.tricloud.mooc.domain.Account;
+import cn.edu.buaa.tricloud.mooc.exception.ActionNotSupport;
 import cn.edu.buaa.tricloud.mooc.exception.AttachmentUploadError;
 import cn.edu.buaa.tricloud.mooc.exception.QueryParameterError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,5 +40,10 @@ public class CommonAdvice {
     @ExceptionHandler(AttachmentUploadError.class)
     public Response noHandlerFoundException(AttachmentUploadError e) {
         return ResponseBuilder.build(0,e);
+    }
+
+    @ExceptionHandler(ActionNotSupport.class)
+    public Response actionNotSuppoted(ActionNotSupport actionNotSupport) {
+        return ResponseBuilder.build(0, actionNotSupport);
     }
 }
