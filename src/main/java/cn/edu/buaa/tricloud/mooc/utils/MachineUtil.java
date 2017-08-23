@@ -24,6 +24,7 @@ public class MachineUtil {
     private static final String machine_uri = "/api/v0.1/virtual_machines";
 
     private static String getRequestUri(String action, Integer school) {
+        if ( school > 2 || school < 0 ) throw new MachineOperatorError(String.format("failure to do action with not in [0,2] - school:%d",school));
         if ( action.compareTo("/create") == 0 )
             return machine_hosts[school] + machine_uri + action;
         else return machine_hosts[0] + machine_uri+ action;
@@ -69,35 +70,35 @@ public class MachineUtil {
     }
 
     public static boolean start(Integer school, JSONObject machine_info) {
-        if (machine_info == null || machine_info.containsKey("vm_id")) throw new MachineOperatorError(String.format("failure to start machine - machine info is error:%s",machine_info==null?"empty":machine_info.toJSONString()));
+        if (machine_info == null || !machine_info.containsKey("vm_id")) throw new MachineOperatorError(String.format("failure to start machine - machine info is error:%s",machine_info==null?"empty":machine_info.toJSONString()));
 
         Integer vm_id = machine_info.getInteger("vm_id");
 
         JSONObject response = doAction("/start", school, vm_id);
         if (response.containsKey("result") && response.getString("result").compareTo("success") == 0 )
             return true;
-        else throw new MachineOperatorError(String.format("failure to start machine - %s",response.toJSONString()));
+        else throw new MachineOperatorError(String.format("failure to start machine - vm_id:%d\treponse:%s",vm_id, response.toJSONString()));
     }
     public static boolean stop(Integer school, JSONObject machine_info) {
-        if (machine_info == null || machine_info.containsKey("vm_id")) throw new MachineOperatorError(String.format("failure to stop machine - machine info is error:%s",machine_info==null?"empty":machine_info.toJSONString()));
+        if (machine_info == null || !machine_info.containsKey("vm_id")) throw new MachineOperatorError(String.format("failure to stop machine - machine info is error:%s",machine_info==null?"empty":machine_info.toJSONString()));
 
         Integer vm_id = machine_info.getInteger("vm_id");
 
         JSONObject response = doAction("/start", school, vm_id);
         if (response.containsKey("result") && response.getString("result").compareTo("success") == 0 )
             return true;
-        else throw new MachineOperatorError(String.format("failure to stop machine - %s",response.toJSONString()));
+        else throw new MachineOperatorError(String.format("failure to stop machine - vm_id:%d\tresponse:%s",vm_id, response.toJSONString()));
     }
 
     public static JSONObject migrate(Integer school, JSONObject machine_info) {
-        if (machine_info == null || machine_info.containsKey("vm_id")) throw new MachineOperatorError(String.format("failure to migrate machine - machine info is error:%s",machine_info==null?"empty":machine_info.toJSONString()));
+        if (machine_info == null || !machine_info.containsKey("vm_id")) throw new MachineOperatorError(String.format("failure to migrate machine - machine info is error:%s",machine_info==null?"empty":machine_info.toJSONString()));
 
         Integer vm_id = machine_info.getInteger("vm_id");
 
         JSONObject response = doAction("/migrate", school, vm_id);
 
         if (response.containsKey("error") && response.getString("errror").compareTo("failed") == 0 )
-            throw new MachineOperatorError(String.format("failure to stop machine - %s",response.toJSONString()));
+            throw new MachineOperatorError(String.format("failure to stop machine - vm_id:%d\tresponse:%s",vm_id,response.toJSONString()));
         else return response;
     }
 }
