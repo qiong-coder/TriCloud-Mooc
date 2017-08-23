@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public interface MachineService {
 
-    JSONObject create();
+    JSONObject create(Integer school);
 
     void start(Integer oid);
 

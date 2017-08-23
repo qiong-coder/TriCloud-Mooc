@@ -18,29 +18,29 @@ public class MachineServiceImpl implements MachineService {
     @Autowired
     CourseOrderRepository courseOrderRepository;
 
-    public JSONObject create() {
-        return MachineUtil.create();
+    public JSONObject create(Integer school) {
+        return MachineUtil.create(school);
     }
 
     public void start(Integer oid) {
         CourseOrder courseOrder = courseOrderRepository.get(oid);
         if ( courseOrder == null ) throw new CourseOrderNotFound(String.format("failure to find the course order by id:%d",oid));
 
-        MachineUtil.start(JSONObject.parseObject(courseOrder.getMachine()));
+        MachineUtil.start(courseOrder.getSchool(), JSONObject.parseObject(courseOrder.getMachine()));
     }
 
     public void stop(Integer oid) {
         CourseOrder courseOrder = courseOrderRepository.get(oid);
         if ( courseOrder == null ) throw new CourseOrderNotFound(String.format("failure to find the course order by id:%d",oid));
 
-        MachineUtil.stop(JSONObject.parseObject(courseOrder.getMachine()));
+        MachineUtil.stop(courseOrder.getSchool(), JSONObject.parseObject(courseOrder.getMachine()));
     }
 
     public void migrate(Integer oid) {
         CourseOrder courseOrder = courseOrderRepository.get(oid);
         if ( courseOrder == null ) throw new CourseOrderNotFound(String.format("failure to find the course order by id:%d",oid));
 
-        JSONObject machine_info = MachineUtil.migrate(JSONObject.parseObject(courseOrder.getMachine()));
+        JSONObject machine_info = MachineUtil.migrate(courseOrder.getSchool(), JSONObject.parseObject(courseOrder.getMachine()));
         courseOrder.setMachine(machine_info.toJSONString());
         courseOrderRepository.update(courseOrder);
     }

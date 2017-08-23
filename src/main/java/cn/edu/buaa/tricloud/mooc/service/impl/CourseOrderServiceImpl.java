@@ -9,6 +9,7 @@ import cn.edu.buaa.tricloud.mooc.repository.CourseRepository;
 import cn.edu.buaa.tricloud.mooc.repository.CourseOrderRepository;
 import cn.edu.buaa.tricloud.mooc.service.CourseOrderService;
 import cn.edu.buaa.tricloud.mooc.utils.MachineUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,6 +58,9 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     public void delete(Integer oid) {
+        CourseOrder courseOrder = courseOrderRepository.get(oid);
+        if (courseOrder == null) throw new CourseOrderNotFound(String.format("failure to find the course order by id%s", oid));
+        MachineUtil.stop(courseOrder.getSchool(), JSONObject.parseObject(courseOrder.getMachine()));
         courseOrderRepository.delete(oid);
     }
 
@@ -69,7 +73,7 @@ public class CourseOrderServiceImpl implements CourseOrderService {
         courseOrder.setCid(cid);
         courseOrder.setSchool(account.getSchool());
         //TODO: 添加机器类型
-        courseOrder.setMachine(MachineUtil.create().toJSONString());
+        courseOrder.setMachine(MachineUtil.create(account.getSchool()).toJSONString());
 
         return insert(courseOrder);
     }
