@@ -1,8 +1,10 @@
 package cn.edu.buaa.tricloud.mooc.service.impl;
 
 import cn.edu.buaa.tricloud.mooc.domain.Account;
+import cn.edu.buaa.tricloud.mooc.domain.Course;
 import cn.edu.buaa.tricloud.mooc.domain.CourseOrder;
 import cn.edu.buaa.tricloud.mooc.exception.AccountNotFound;
+import cn.edu.buaa.tricloud.mooc.exception.CourseOrderAlreadyOrdered;
 import cn.edu.buaa.tricloud.mooc.exception.CourseOrderNotFound;
 import cn.edu.buaa.tricloud.mooc.repository.AccountRepository;
 import cn.edu.buaa.tricloud.mooc.repository.CourseRepository;
@@ -68,14 +70,18 @@ public class CourseOrderServiceImpl implements CourseOrderService {
         Account account = accountRepository.getAccountByLoginName(login_name);
         if ( account == null ) throw new AccountNotFound(String.format("failure to find account by login_name:%s",login_name));
 
-        CourseOrder courseOrder = new CourseOrder();
-        courseOrder.setLogin_name(login_name);
-        courseOrder.setCid(cid);
-        courseOrder.setSchool(account.getSchool());
-        //TODO: 添加机器类型
-        courseOrder.setMachine(MachineUtil.create(account.getSchool()).toJSONString());
+        CourseOrder courseOrder = courseOrderRepository.getByLoginNameAndCourseId(login_name,cid);
 
-        return insert(courseOrder);
+        if ( courseOrder == null ) {
+            courseOrder = new CourseOrder();
+            courseOrder.setLogin_name(login_name);
+            courseOrder.setCid(cid);
+            courseOrder.setSchool(account.getSchool());
+            courseOrder.setMachine(MachineUtil.create(account.getSchool()).toJSONString());
+            return insert(courseOrder);
+        } else {
+            throw new CourseOrderAlreadyOrdered(String.format("course order is already ordered - oid:%d",courseOrder.getId()));
+        }
     }
 
     public Map<Integer, Long> listOrderNumberByCourseId(Integer cid) {

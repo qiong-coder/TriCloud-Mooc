@@ -42,4 +42,6 @@ public class ResponseCodeMessage {
     public static final int ACTION_NOT_SUPPORTED_CODE = -13;
 
     public static final int ACTION_NOT_FOUND_CODE = -14;
+
+    public static final int COURSE_ORDER_ALREADY_ORDERED = -15;
 }

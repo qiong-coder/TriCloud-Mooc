@@ -18,6 +18,8 @@ public interface CourseOrderRepository {
 
     CourseOrder get(Integer id);
 
+    CourseOrder getByLoginNameAndCourseId(String login_name, Integer cid);
+
     Integer insert(CourseOrder courseOrder);
 
     void update(CourseOrder courseOrder);

@@ -46,6 +46,14 @@ public class CourseOrderRepositoryImpl extends HibernateSessionFactory implement
         return (CourseOrder)getCurrentSession().get(CourseOrder.class,id);
     }
 
+    public CourseOrder getByLoginNameAndCourseId(String login_name, Integer cid) {
+        List<CourseOrder> courseOrders = getCurrentSession().createCriteria(CourseOrder.class)
+                .add(Restrictions.eq("login_name",login_name))
+                .add(Restrictions.eq("cid", cid)).list();
+        if (courseOrders == null || courseOrders.isEmpty() ) return null;
+        else return courseOrders.get(0);
+    }
+
     public Integer insert(CourseOrder courseOrder) {
         return (Integer) getCurrentSession().save(courseOrder);
     }
